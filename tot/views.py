@@ -1,7 +1,9 @@
 #tot/views.py
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Set, Box, Flashcard
+from .forms import SetForm, BoxForm, FlashcardForm
+
 
 
 def set_list(request):
@@ -17,4 +19,66 @@ def box_detail(request, box_id):
 def flashcard_detail(request, flashcard_id):
     flashcard = get_object_or_404(Flashcard, pk=flashcard_id)
     return render(request, 'tot/flashcard_detail.html', {'flashcard': flashcard})
+
+
+def create_set(request):
+    if request.method == 'POST':
+        form = SetForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('tot:set_list')
+    else:
+        form = SetForm()
+    return render(request, 'tot/create_set.html', {'form': form})
+
+
+def create_box(request, set_id):
+    set_obj = get_object_or_404(Set, pk=set_id)
+    if request.method == 'POST':
+        form = BoxForm(request.POST)
+        if form.is_valid():
+            box = form.save(commit=False)
+            box.set = set_obj
+            box.save()
+            return redirect('tot:box_detail', box_id=box.id)
+    else:
+        form = BoxForm()
+    return render(request, 'tot/create_box.html', {'form': form, 'set': set_obj})
+
+
+def create_flashcard(request, box_id):
+    box_obj = get_object_or_404(Box, pk=box_id)
+    if request.method == 'POST':
+        form = FlashcardForm(request.POST)
+        if form.is_valid():
+            flashcard = form.save(commit=False)
+            flashcard.box = box_obj
+            flashcard.save()
+            return redirect('tot:box_detail', box_id=box_id)
+    else:
+        form = FlashcardForm()
+    return render(request, 'tot/create_flashcard.html', {'form': form, 'box': box_obj})
+
+
+def edit_flashcard(request, flashcard_id):
+    flashcard = get_object_or_404(Flashcard, pk=flashcard_id)
+    box_obj = flashcard.box
+    if request.method == 'POST':
+        form = FlashcardForm(request.POST, instance=flashcard)
+        if form.is_valid():
+            form.save()
+            return redirect('tot:box_detail', box_id=box_obj.id)
+    else:
+        form = FlashcardForm(instance=flashcard)
+    return render(request, 'tot/edit_flashcard.html', {'form': form, 'box': box_obj})
+
+
+def delete_flashcard(request, flashcard_id):
+    flashcard = get_object_or_404(Flashcard, pk=flashcard_id)
+    box_obj = flashcard.box
+    if request.method == 'POST':
+        flashcard.delete()
+        return redirect('tot:box_detail', box_id=box_obj.id)
+    return render(request, 'tot/delete_flashcard.html', {'flashcard': flashcard})
+
 
