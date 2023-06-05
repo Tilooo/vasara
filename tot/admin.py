@@ -1,3 +1,10 @@
-from django.contrib import admin
+#tot/admin.py
 
-# Register your models here.
+from django.contrib import admin
+from .models import Language, Set, Box, Flashcard
+
+admin.site.register(Language)
+admin.site.register(Set)
+admin.site.register(Box)
+admin.site.register(Flashcard)
+

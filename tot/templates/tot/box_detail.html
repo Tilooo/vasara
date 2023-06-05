@@ -1,0 +1,6 @@
+<h2>{{ box.name }}</h2>
+<ul>
+  {% for flashcard in box.flashcard_set.all %}
+    <li><a href="{% url 'flashcard_detail' flashcard.id %}">{{ flashcard.question }}</a></li>
+  {% endfor %}
+</ul>
