@@ -2,6 +2,7 @@
 
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 app_name = 'tot'
 
@@ -14,7 +15,11 @@ urlpatterns = [
     path('flashcard/<int:flashcard_id>/edit/', views.edit_flashcard, name='edit_flashcard'),
     path('flashcard/<int:flashcard_id>/delete/', views.delete_flashcard, name='delete_flashcard'),
     path('flashcard/<int:flashcard_id>/', views.flashcard_detail, name='flashcard_detail'),
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('register/', views.register, name='register'),
 ]
+
 
 
 

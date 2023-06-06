@@ -3,6 +3,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Set, Box, Flashcard
 from .forms import SetForm, BoxForm, FlashcardForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -26,7 +28,7 @@ def create_set(request):
         form = SetForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('tot:set_list')
+            return redirect('set_list')
     else:
         form = SetForm()
     return render(request, 'tot/create_set.html', {'form': form})
@@ -80,5 +82,17 @@ def delete_flashcard(request, flashcard_id):
         flashcard.delete()
         return redirect('tot:box_detail', box_id=box_obj.id)
     return render(request, 'tot/delete_flashcard.html', {'flashcard': flashcard})
+
+
+@login_required
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('tot:set_list')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
 
 

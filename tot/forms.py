@@ -7,7 +7,7 @@ from .models import Set, Box, Flashcard
 class SetForm(forms.ModelForm):
     class Meta:
         model = Set
-        fields = ['name', 'boxs']
+        fields = ['name', 'languages']
 
 
 class BoxForm(forms.ModelForm):

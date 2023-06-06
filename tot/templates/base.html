@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Django App</title>
+    <!-- Add your CSS and other meta tags here -->
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #ffc107;
+            color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .content {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .btn {
+            background-color: #ffc107;
+            border: none;
+            border-radius: 5px;
+            color: #333;
+            padding: 10px 20px;
+        }
+
+        .btn:hover {
+            background-color: #e0a800;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Add your navigation section -->
+    <nav>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+        <button class="btn">Sign Up</button>
+    </nav>
+
+    <!-- Add your content section -->
+    <div class="content">
+        <h1>Welcome to My Django App!</h1>
+        <p>Click the button below to access the sets:</p>
+        <a href="{% url 'set_list' %}" class="btn">Go to Sets</a>
+        {% block content %}
+        <!-- Content specific to child templates will go here -->
+        {% endblock %}
+    </div>
+
+    <!-- Add your footer section -->
+    <footer>
+        &copy; 2023 My Django App. All rights reserved.
+    </footer>
+
+    <!-- Add your JavaScript and other scripts here -->
+</body>
+</html>
+
+
+
+
+
+
+
+
