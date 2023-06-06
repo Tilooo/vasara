@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Django App</title>
+    <title>Tilo App</title>
     <!-- Add your CSS and other meta tags here -->
     <style>
         body {
@@ -64,9 +64,9 @@
 
     <!-- Add your content section -->
     <div class="content">
-        <h1>Welcome to My Django App!</h1>
+        <h1>Welcome to Tilo!</h1>
         <p>Click the button below to access the sets:</p>
-        <a href="{% url 'set_list' %}" class="btn">Go to Sets</a>
+        <a href="{% url 'tot:set_list' %}" class="btn">Go to Sets</a>
         {% block content %}
         <!-- Content specific to child templates will go here -->
         {% endblock %}
@@ -74,7 +74,7 @@
 
     <!-- Add your footer section -->
     <footer>
-        &copy; 2023 My Django App. All rights reserved.
+        &copy; 2023 Tilo App💛. All rights reserved.
     </footer>
 
     <!-- Add your JavaScript and other scripts here -->

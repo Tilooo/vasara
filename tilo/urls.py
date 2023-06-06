@@ -26,9 +26,9 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('register/', views.register, name='register'),
-    path('sets/', views.set_list, name='set_list'),
-    path('', include('tot.urls')),
-    # Add your URL patterns here
+    path('sets/', include('tot.urls')),
+    path('', views.home, name='home'),
 ]
+
 
 

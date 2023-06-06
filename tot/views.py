@@ -96,3 +96,5 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
+def home(request):
+    return render(request, 'tot/home.html')
