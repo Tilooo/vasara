@@ -85,6 +85,14 @@ def delete_flashcard(request, flashcard_id):
     return render(request, 'tot/delete_flashcard.html', {'flashcard': flashcard})
 
 
+def flashcard_detail(request, flashcard_id):
+    flashcard = get_object_or_404(Flashcard, pk=flashcard_id)
+    return render(request, 'tot/flashcard_detail.html', {'flashcard': flashcard})
+
+
+
+
+
 @login_required
 def register(request):
     if request.method == 'POST':
