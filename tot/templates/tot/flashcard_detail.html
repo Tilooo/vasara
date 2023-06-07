@@ -1,2 +1,12 @@
-<h2>{{ flashcard.question }}</h2>
-<p>Answer: {{ flashcard.answer }}</p>
+<!-- tot/flashcard_detail.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ flashcard.question }}</h2>
+    <p>{{ flashcard.answer }}</p>
+    {% if flashcard.image %}
+        <img src="{{ flashcard.image.url }}" alt="{{ flashcard.question }}">
+    {% endif %}
+{% endblock %}
+

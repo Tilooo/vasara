@@ -6,17 +6,38 @@
     <h1>Sets</h1>
     {% if sets %}
         <style>
+            .set-list {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .set-item {
+                margin-bottom: 20px;
+            }
+
+            .set-name {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            .box-list {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .box-item {
+                margin-bottom: 10px;
+            }
+
             .box-button {
-                background-color: #4CAF50;
-                border: none;
-                color: white;
-                padding: 10px 20px;
-                text-align: center;
-                text-decoration: none;
                 display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
+                padding: 8px 16px;
+                background-color: #4CAF50;
+                color: white;
+                text-decoration: none;
                 border-radius: 4px;
             }
 
@@ -25,15 +46,15 @@
             }
         </style>
 
-        <ul>
+        <ul class="set-list">
             {% for set in sets %}
-                <li>
-                    <h2>{{ set.name }}</h2>
+                <li class="set-item">
+                    <div class="set-name">{{ set.name }}</div>
                     {% if set.box_set.all %}
-                        <ul>
+                        <ul class="box-list">
                             {% for box in set.box_set.all %}
-                                <li>
-                                    <button class="box-button" onclick="location.href='{% url 'tot:box_detail' box.id %}'">{{ box.name }}</button>
+                                <li class="box-item">
+                                    <a href="{% url 'tot:box_detail' box.id %}" class="box-button">{{ box.name }}</a>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -47,6 +68,10 @@
         <p>No sets available.</p>
     {% endif %}
 {% endblock %}
+
+
+
+
 
 
 
