@@ -1,22 +1,26 @@
 <!-- base.html -->
 
 <!DOCTYPE html>
+{% load static %}
+
 <html>
 <head>
     <title>Tilo App</title>
     <!-- Add your CSS and other meta tags here -->
     <style>
         body {
-            background-color: #f5f5f5;
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+        background-image: url("{% static 'images/tilo.jpg' %}");
+        background-size: cover;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
 
         nav {
             background-color: #ffc107;
             color: #333;
-            padding: 10px;
+            padding: 7px;
             display: flex;
             justify-content: space-between;
         }
@@ -24,15 +28,15 @@
         nav a {
             color: #333;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 17px;
         }
 
         .content {
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-            padding: 20px;
+                background-color: rgba(255, 255, 255, 0.9);  /* Use rgba() with an alpha value */
+                border-radius: 7px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                margin: 20px;
+                padding: 15px;
         }
 
         .btn {
@@ -67,7 +71,7 @@
     <!-- Add your content section -->
     <div class="content">
         <h1>Welcome to Tilo!</h1>
-        <p>Click the button below to access the sets:</p>
+        <p>Click the button below and have fun!:</p>
         <a href="{% url 'tot:set_list' %}" class="btn">Go to Sets</a>
         {% block content %}
         <!-- Content specific to child templates will go here -->

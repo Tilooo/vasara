@@ -1,0 +1,13 @@
+<!-- tot/flashcard.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+    <h2>{{ flashcard.question }}</h2>
+    {% if flashcard.image %}
+      <img src="{{ flashcard.image.url }}" alt="Flashcard Image" style="max-width: 100%; margin-bottom: 10px;">
+    {% endif %}
+    <p>{{ flashcard.answer }}</p>
+  </div>
+{% endblock %}

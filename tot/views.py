@@ -93,6 +93,7 @@ def flashcard_detail(request, flashcard_id):
 
 
 
+
 @login_required
 def register(request):
     if request.method == 'POST':

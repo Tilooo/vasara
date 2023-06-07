@@ -3,10 +3,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>{{ flashcard.question }}</h2>
-    <p>{{ flashcard.answer }}</p>
+  <div class="flashcard" style="background-color: #f2f2f2; padding: 20px; border-radius: 5px;">
+    <h2 style="font-size: 24px; margin-bottom: 10px;">{{ flashcard.question }}</h2>
+    <p style="font-size: 26px;">{{ flashcard.answer }}</p>
     {% if flashcard.image %}
-        <img src="{{ flashcard.image.url }}" alt="{{ flashcard.question }}">
+      <img src="{{ flashcard.image.url }}" alt="Flashcard Image" style="max-width: 30%; height: auto; margin-top: 10px;">
     {% endif %}
+  </div>
 {% endblock %}
+
+
 
