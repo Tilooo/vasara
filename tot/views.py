@@ -33,9 +33,10 @@ def create_set(request):
         form = SetForm()
     return render(request, 'tot/create_set.html', {'form': form})
 
-
+@login_required
 def create_box(request, set_id):
     set_obj = get_object_or_404(Set, pk=set_id)
+    boxes = set_obj.boxes.all()  # Retrieve boxes associated with the set
     if request.method == 'POST':
         form = BoxForm(request.POST)
         if form.is_valid():

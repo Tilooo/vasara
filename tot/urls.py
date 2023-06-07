@@ -7,6 +7,8 @@ from django.contrib.auth import views as auth_views
 app_name = 'tot'
 
 urlpatterns = [
+    path('sets/', views.set_list, name='set_list'),
+    path('sets/<int:set_id>/boxes/', views.create_box, name='create_box'),
     path('', views.set_list, name='set_list'),
     path('set/create/', views.create_set, name='create_set'),
     path('set/<int:set_id>/box/create/', views.create_box, name='create_box'),
