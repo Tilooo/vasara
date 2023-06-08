@@ -1,0 +1,18 @@
+<!-- set_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ set.name }}</h1>
+<!-- Add any other details you want to display about the set -->
+<h2>Related Boxes:</h2>
+{% for box in set.boxes.all %}
+<p>{{ box.name }}</p>
+<!-- Add any other box details you want to display -->
+{% empty %}
+<p>No related boxes found.</p>
+{% endfor %}
+<a href="#" class="set-link" data-set-id="{{ set.id }}">View Related Boxes</a>
+{% endblock %}
+
+
+

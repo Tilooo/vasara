@@ -1,5 +1,4 @@
 <!-- base.html -->
-
 <!DOCTYPE html>
 {% load static %}
 
@@ -9,88 +8,94 @@
     <!-- Add your CSS and other meta tags here -->
     <style>
         body {
-        background-image: url("{% static 'images/tilo.jpg' %}");
-        background-size: cover;
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        padding: 0;
+            background-image: url("{% static 'images/tilo.jpg' %}");
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+            nav {
+        background-color: #ffc107;
+        color: #333;
+        padding: 7px;
+        display: flex;
+        justify-content: space-between;
     }
 
+    nav a {
+        color: #333;
+        text-decoration: none;
+        font-size: 17px;
+    }
 
-        nav {
-            background-color: #ffc107;
-            color: #333;
-            padding: 7px;
-            display: flex;
-            justify-content: space-between;
-        }
+    .content {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 7px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+        padding: 15px;
+    }
 
-        nav a {
-            color: #333;
-            text-decoration: none;
-            font-size: 17px;
-        }
+    .btn {
+        background-color: #ffc107;
+        border: none;
+        border-radius: 5px;
+        color: #333;
+        padding: 10px 20px;
+    }
 
-        .content {
-                background-color: rgba(255, 255, 255, 0.9);  /* Use rgba() with an alpha value */
-                border-radius: 7px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                margin: 20px;
-                padding: 15px;
-        }
+    .btn:hover {
+        background-color: #e0a800;
+    }
 
-        .btn {
-            background-color: #ffc107;
-            border: none;
-            border-radius: 5px;
-            color: #333;
-            padding: 10px 20px;
-        }
-
-        .btn:hover {
-            background-color: #e0a800;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-            font-size: 14px;
-        }
-    </style>
+    footer {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-size: 14px;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery from CDN -->
+<script src="{% static 'js/main.js' %}"></script> <!-- Your custom JavaScript file -->
 </head>
 <body>
     <!-- Add your navigation section -->
     <nav>
         <a href="{% url 'login' %}">Login</a>
         <a href="{% url 'register' %}">Register</a>
-        <button class="btn">Sign Up</button>
+        <button class="btn">Home</button>
     </nav>
+<!-- Add your content section -->
+<div class="content">
+    <h1>Welcome to Tilo!</h1>
+    <p>Click the button below and have fun!:</p>
+    <a href="{% url 'tot:set_list' %}" class="btn">Go to Sets</a>
+    {% block content %}
+    <!-- Content specific to child templates will go here -->
+    {% endblock %}
+</div>
 
-    <!-- Add your content section -->
-    <div class="content">
-        <h1>Welcome to Tilo!</h1>
-        <p>Click the button below and have fun!:</p>
-        <a href="{% url 'tot:set_list' %}" class="btn">Go to Sets</a>
-        {% block content %}
-        <!-- Content specific to child templates will go here -->
-        {% endblock %}
-    </div>
+<!-- Add your footer section -->
+<footer>
+    &copy; 2023 Tilo App💛. All rights reserved.
+</footer>
 
-    <!-- Add your footer section -->
-    <footer>
-        &copy; 2023 Tilo App💛. All rights reserved.
-    </footer>
+<!-- Add your JavaScript and other scripts here -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+    // JavaScript code to handle showing/hiding related boxes
+    $(document).ready(function() {
+        $('.set-link').click(function(e) {
+            e.preventDefault();
+            var setId = $(this).data('set-id');
+            $('.box').hide();
+            $('.box[data-set-id="' + setId + '"]').show();
+        });
+    });
+</script>
 
-    <!-- Add your JavaScript and other scripts here -->
 </body>
 </html>
-
-
-
-
-
-
 
 
