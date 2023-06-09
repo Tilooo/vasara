@@ -1,17 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Sets</h1>
-    {% if sets %}
-        <ul>
-            {% for set in sets %}
-                <li><a href="{% url 'tot:set_detail' set_id=set.id %}">{{ set.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No sets available.</p>
-    {% endif %}
+  <h1>Sets</h1>
+  {% for set in sets %}
+    <a href="{% url 'tot:set_detail' set_id=set.id %}" class="btn">{{ set.name }}</a>
+  {% empty %}
+    <p>No sets found.</p>
+  {% endfor %}
 {% endblock %}
+
 
 
 

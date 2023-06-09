@@ -1,5 +1,3 @@
-#tot/models.py
-
 from django.db import models
 
 class Language(models.Model):
@@ -12,6 +10,7 @@ class Language(models.Model):
 class Set(models.Model):
     name = models.CharField(max_length=100)
     languages = models.ManyToManyField(Language)
+    boxes = models.ManyToManyField('Box', related_name='sets')
 
     def __str__(self):
         return self.name
@@ -25,7 +24,6 @@ class Box(models.Model):
         return self.name
 
 
-from django.db import models
 
 class Flashcard(models.Model):
     question = models.TextField()

@@ -2,17 +2,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ set.name }}</h1>
-<!-- Add any other details you want to display about the set -->
-<h2>Related Boxes:</h2>
-{% for box in set.boxes.all %}
-<p>{{ box.name }}</p>
-<!-- Add any other box details you want to display -->
-{% empty %}
-<p>No related boxes found.</p>
-{% endfor %}
-<a href="#" class="set-link" data-set-id="{{ set.id }}">View Related Boxes</a>
+    <h1><a href="{% url 'tot:set_detail' set_id=set.id %}">{{ set.name }}</a></h1>
+    <!-- Add any other details you want to display about the set -->
+    <h2>Related Boxes:</h2>
+    {% for box in set.boxes.all %}
+        <button class="set-link" data-set-id="{{ set.id }}" data-box-id="{{ box.id }}">{{ box.name }}</button>
+        <!-- Add any other box details you want to display -->
+    {% empty %}
+        <p>No related boxes found.</p>
+    {% endfor %}
+
+    <script>
+        // JavaScript code to handle set links
+        $(document).ready(function() {
+            $('.set-link').click(function(e) {
+                e.preventDefault();
+                var setId = $(this).data('set-id');
+                var boxId = $(this).data('box-id');
+                window.location.href = '/box/' + boxId + '/';  // Replace '/boxes/' with the appropriate URL pattern for the box detail page
+            });
+        });
+    </script>
 {% endblock %}
+
+
+
+
+
 
 
 
