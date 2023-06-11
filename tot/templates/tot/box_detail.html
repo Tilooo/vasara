@@ -7,7 +7,7 @@
     <h2>Flashcards</h2>
     <div class="button-container">
         {% for flashcard in flashcards %}
-            <a href="{% url 'tot:flashcard_detail' flashcard_id=flashcard.id %}" class="btn btn-flashcard">{{ flashcard.title }}</a>
+            <a href="{% url 'tot:flashcard_detail' flashcard_id=flashcard.id %}" class="btn btn-flashcard">{{ flashcard.question }}</a>
         {% empty %}
             <p>No flashcards found.</p>
         {% endfor %}
@@ -30,6 +30,7 @@
         }
     </style>
 {% endblock %}
+
 
 
 

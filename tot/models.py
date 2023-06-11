@@ -22,7 +22,7 @@ class Box(models.Model):
     set = models.ForeignKey(Set, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.set.name})"
 
 
 class Flashcard(models.Model):
