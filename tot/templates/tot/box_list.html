@@ -1,10 +1,16 @@
-<!-- tot/box_list.html -->
-
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Boxes for Set: {{ set.name }}</h2>
-  {% for box in boxes %}
-    <a href="{% url 'tot:box_detail' box_id=box.id %}" class="btn">{{ box.name }}</a>
-  {% endfor %}
+    <h1>Boxes</h1>
+    <div class="button-container">
+        {% for box in boxes %}
+            <a href="{% url 'tot:box_detail' box_id=box.id %}" class="btn box-button">{{ box.name }}</a>
+        {% empty %}
+            <p>No boxes found.</p>
+        {% endfor %}
+    </div>
 {% endblock %}
+
+
+
+

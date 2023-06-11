@@ -1,12 +1,11 @@
-<!-- base.html -->
 <!DOCTYPE html>
 {% load static %}
 
 <html>
 <head>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <title>Tilo App</title>
     <!-- Add your CSS and other meta tags here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
         body {
             background-image: url("{% static 'images/tilo.jpg' %}");
@@ -38,16 +37,68 @@
             padding: 15px;
         }
 
-        .btn {
+        .set-button {
             background-color: #ffc107;
             border: none;
             border-radius: 5px;
             color: #333;
             padding: 10px 20px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        .btn:hover {
+        .set-button:hover {
             background-color: #e0a800;
+        }
+
+        .set-button:nth-child(even) {
+            background-color: #ff6f00;
+        }
+
+        .set-button:nth-child(even):hover {
+            background-color: #d95c00;
+        }
+
+        .set-button:nth-child(3n) {
+            background-color: #ff5722;
+        }
+
+        .set-button:nth-child(3n):hover {
+            background-color: #e64a19;
+        }
+
+        .box-button {
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .box-button:hover {
+            background-color: #0056b3;
+        }
+
+        .box-button:nth-child(even) {
+            background-color: #6610f2;
+        }
+
+        .box-button:nth-child(even):hover {
+            background-color: #5609c0;
+        }
+
+        .box-button:nth-child(3n) {
+            background-color: #dc3545;
+        }
+
+        .box-button:nth-child(3n):hover {
+            background-color: #c82333;
         }
 
         footer {
@@ -57,32 +108,18 @@
             text-align: center;
             font-size: 14px;
         }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            /* Adjust the styles for screens smaller than 768px */
-            .content {
-                margin: 10px;
-                padding: 10px;
-            }
-        }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery from CDN -->
-    <script src="{% static 'js/main.js' %}"></script> <!-- Your custom JavaScript file -->
 </head>
 <body>
     <!-- Add your navigation section -->
     <nav>
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'register' %}">Register</a>
-        <button class="btn">Home</button>
+        <a href="{% url 'tot:home' %}">Home</a>
+        <a href="{% url 'tot:login' %}">Login</a>
+        <a href="{% url 'tot:register' %}">Register</a>
     </nav>
 
     <!-- Add your content section -->
     <div class="content">
-        <h1>Welcome to Tilo!</h1>
-        <p>Click the button below and have fun!:</p>
-        <a href="{% url 'tot:set_list' %}" class="btn">Go to Sets</a>
         {% block content %}
         <!-- Content specific to child templates will go here -->
         {% endblock %}
@@ -94,19 +131,15 @@
     </footer>
 
     <!-- Add your JavaScript and other scripts here -->
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script>
-        // JavaScript code to handle showing/hiding related boxes
-        $(document).ready(function() {
-            $('.set-link').click(function(e) {
-                e.preventDefault();
-                var setId = $(this).data('set-id');
-                $('.box').hide();
-                $('.box[data-set-id="' + setId + '"]').show();
-            });
-        });
-    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
 
 

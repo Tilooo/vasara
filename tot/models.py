@@ -9,6 +9,7 @@ class Language(models.Model):
 
 class Set(models.Model):
     name = models.CharField(max_length=100)
+    identifier = models.CharField(max_length=100, unique=True, default='default_identifier')  # Add default value
     languages = models.ManyToManyField(Language)
     boxes = models.ManyToManyField('Box', related_name='sets')
 
@@ -24,7 +25,6 @@ class Box(models.Model):
         return self.name
 
 
-
 class Flashcard(models.Model):
     question = models.TextField()
     answer = models.TextField()
@@ -33,5 +33,3 @@ class Flashcard(models.Model):
 
     def __str__(self):
         return self.question
-
-

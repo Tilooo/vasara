@@ -1,8 +1,37 @@
-<!-- box_detail.html -->
-<h2><a href="{% url 'tot:box_detail' box_id=box.id %}">{{ box.name }}</a></h2>
-<ul>
-  {% for flashcard in box.flashcard_set.all %}
-    <li><a href="{% url 'tot:flashcard_detail' flashcard.id %}">{{ flashcard.question }}</a></li>
-  {% endfor %}
-</ul>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ box.name }}</h1>
+    <p>{{ box.description }}</p>
+
+    <h2>Flashcards</h2>
+    <div class="button-container">
+        {% for flashcard in flashcards %}
+            <a href="{% url 'tot:flashcard_detail' flashcard_id=flashcard.id %}" class="btn btn-flashcard">{{ flashcard.title }}</a>
+        {% empty %}
+            <p>No flashcards found.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .btn-flashcard {
+            background-color: #ffc107;
+            color: #333;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .btn-flashcard:hover {
+            background-color: #e0a800;
+        }
+    </style>
+{% endblock %}
+
+
+
+
 
