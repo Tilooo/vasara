@@ -9,7 +9,6 @@ def home(request):
     return render(request, 'tot/home.html')
 
 
-
 def set_list(request):
     sets = Set.objects.all()
     return render(request, 'tot/set_list.html', {'sets': sets})
@@ -40,7 +39,21 @@ def box_detail(request, set_id, box_id):
 
 def flashcard_detail(request, flashcard_id):
     flashcard = get_object_or_404(Flashcard, pk=flashcard_id)
-    return render(request, 'tot/flashcard_detail.html', {'flashcard': flashcard})
+    box = flashcard.box
+
+    flashcards = box.flashcard_set.order_by('id')
+    flashcard_ids = [f.id for f in flashcards]
+    current_index = flashcard_ids.index(flashcard_id)
+
+    previous_flashcard = flashcards[current_index - 1] if current_index > 0 else None
+    next_flashcard = flashcards[current_index + 1] if current_index < len(flashcards) - 1 else None
+
+    context = {
+        'flashcard': flashcard,
+        'previous_flashcard': previous_flashcard,
+        'next_flashcard': next_flashcard,
+    }
+    return render(request, 'tot/flashcard_detail.html', context)
 
 
 def create_set(request):
@@ -120,9 +133,6 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
 
-
-def home(request):
-    return render(request, 'tot/home.html')
 
 
 

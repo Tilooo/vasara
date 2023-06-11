@@ -3,42 +3,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="flashcard" style="background-color: #f2f2f2; padding: 20px; border-radius: 5px;">
-        <h2 style="font-size: 24px; margin-bottom: 10px;">{{ flashcard.question }}</h2>
-        <p style="font-size: 26px;">{{ flashcard.answer }}</p>
-        {% if flashcard.image %}
-            <img src="{{ flashcard.image.url }}" alt="Flashcard Image" style="max-width: 30%; height: auto; margin-top: 10px;">
-        {% endif %}
-    </div>
-
-    <!-- Add navigation buttons for previous and next flashcards -->
-    <div class="button-container">
-        {% if previous_flashcard %}
-            <a href="{% url 'tot:flashcard_detail' flashcard_id=previous_flashcard.id %}" class="btn btn-flashcard">Previous</a>
-        {% endif %}
-        {% if next_flashcard %}
-            <a href="{% url 'tot:flashcard_detail' flashcard_id=next_flashcard.id %}" class="btn btn-flashcard">Next</a>
-        {% endif %}
-    </div>
+  <div class="flashcard" style="background-color: #f2f2f2; padding: 20px; border-radius: 5px;">
+    <h2 style="font-size: 24px; margin-bottom: 10px;">{{ flashcard.question }}</h2>
+    <p style="font-size: 26px;">{{ flashcard.answer }}</p>
+    {% if flashcard.image %}
+      <img src="{{ flashcard.image.url }}" alt="Flashcard Image" style="max-width: 30%; height: auto; margin-top: 10px;">
+    {% endif %}
+  </div>
 {% endblock %}
-
-{% block styles %}
-    <style>
-        .btn-flashcard {
-            background-color: #ffc107;
-            color: #333;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            margin: 5px;
-        }
-
-        .btn-flashcard:hover {
-            background-color: #e0a800;
-        }
-    </style>
-{% endblock %}
-
 
 
 
