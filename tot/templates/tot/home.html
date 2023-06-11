@@ -1,12 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Welcome to My App</h1>
+    <h1 class="cosmic-title">Welcome to Tilo App</h1>
     <nav>
-        <a href="{% url 'tot:register' %}">Register</a>
-        <a href="{% url 'tot:login' %}">Login</a>
-        <a href="{% url 'tot:set_list' %}" class="btn">Go to Sets</a>
+        <a href="{% url 'tot:set_list' %}" class="btn cosmic-btn">Go to Sets</a>
     </nav>
 {% endblock %}
+
+{% block styles %}
+<style>
+.cosmic-title {
+    background: linear-gradient(135deg, #14b194, #17ead9, #5cf286, #e4f83e);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: cosmicAnimation 2s infinite;
+}
+
+@keyframes cosmicAnimation {
+    0% { background-position: 0 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+.cosmic-btn {
+    background: linear-gradient(135deg, #14b194, #17ead9, #5cf286, #e4f83e);
+    background-size: 300% 300%;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-position 0.5s ease;
+}
+
+.cosmic-btn:hover {
+    background-position: 100% 0;
+}
+</style>
+{% endblock %}
+
+
 
 
