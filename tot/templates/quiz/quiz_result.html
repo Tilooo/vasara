@@ -1,0 +1,26 @@
+<h1>Quiz Result</h1>
+
+{% if is_passed %}
+  <p>Congratulations! You passed the quiz.</p>
+{% else %}
+  <p>Sorry! You did not pass the quiz.</p>
+{% endif %}
+
+<h2>Summary</h2>
+
+<ul>
+  {% for question_result in question_results %}
+    <li>
+      <p>{{ question_result.question_text }}</p>
+      <p>Your answer: {{ question_result.user_answer }}</p>
+      <p>Correct answer: {{ question_result.correct_answer }}</p>
+      {% if question_result.is_correct %}
+        <p><strong>Your answer is correct!</strong></p>
+      {% else %}
+        <p><strong>Your answer is incorrect.</strong></p>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+<p>Your overall score: {{ 10 }}%</p>

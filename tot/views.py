@@ -3,6 +3,9 @@ from tot.models import Set, Box, Flashcard
 from .forms import SetForm, BoxForm, FlashcardForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+import json
+import random
+from django.http import HttpResponse
 
 
 def home(request):
@@ -134,5 +137,80 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
+import random
+
+import random
+
+def quiz_view(request):
+    # Read the contents of the JSON file
+    with open('quiz_data/quiz.json', 'r') as file:
+        quiz_data = json.load(file)
+
+    # Access the quiz data
+    quiz_name = quiz_data['quiz_name']
+    questions = quiz_data['questions']
+
+    if request.method == 'POST':
+        # Process the user's answer
+        question_id = int(request.POST.get('question_id'))
+        selected_answer = request.POST.get('answer')
+
+        # Check if the answer is correct
+        question = questions[question_id]
+        correct_answer = question['correct_answer']
+        is_correct = selected_answer == correct_answer
+
+        context = {
+            'quiz_name': quiz_name,
+            'question': question,
+            'question_id': question_id + 1,
+            'is_correct': is_correct
+        }
+
+        return render(request, 'quiz/quiz.html', context)
+
+    if questions:
+        # Get a random question
+        question = random.choice(questions)
+        question_id = questions.index(question)
+
+        context = {
+            'quiz_name': quiz_name,
+            'question': question,
+            'question_id': question_id
+        }
+    else:
+        context = {
+            'quiz_name': quiz_name,
+            'question': None
+        }
+
+    return render(request, 'quiz/quiz.html', context)
 
 
+def quiz_result(request):
+    if request.method == 'POST':
+        # Get the user's answers from the submitted form
+        user_answers = request.POST.getlist('answer')  # Assuming the user's answers are submitted as a list
+
+        # Read the contents of the JSON file
+        with open('quiz_data/quiz.json', 'r') as file:
+            quiz_data = json.load(file)
+
+        # Access the quiz data
+        quiz_name = quiz_data['quiz_name']
+        questions = quiz_data['questions']
+        correct_answers = [question['correct_answer'] for question in questions]
+
+        # Calculate the score based on the user's answers
+        score = 0
+        for user_answer, correct_answer in zip(user_answers, correct_answers):
+            if user_answer == correct_answer:
+                score += 1
+
+        context = {
+            'score': score,
+            'quiz_name': quiz_name,
+        }
+
+        return render(request, 'quiz/quiz_result.html', context)

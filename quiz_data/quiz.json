@@ -1,0 +1,56 @@
+{
+  "quiz_name": "¡Hola, Caracola! Quiz",
+  "questions": [
+    {
+      "question_text": "Fruto del manzano, comestible, de forma redondeada y algo hundida por los extremos, piel fina, de color verde, amarillo o rojo, carne blanca y jugosa, de sabor dulce o ácido, y semillas en forma de pepitas encerradas en una cápsula de cinco divisiones.",
+      "options": [
+        "obuolys",
+        "kriaušė",
+        "vynuogė",
+        "agrastas"
+      ],
+      "correct_answer": "obuolys"
+    },
+    {
+      "question_text": "Expresión de saludo utilizada entre dos o más personas de trato familiar, sin importar el momento del día ni las circunstancias. Sinónimo: buenas.",
+      "options": [
+        "Kaip sekasi?",
+        "Labanaktis!",
+        "Labas!",
+        "Sveikinimai!"
+      ],
+      "correct_answer": "Labas!"
+    },
+    {
+      "question_text": "Parte de la atmósfera y del espacio exterior vistos desde la Tierra, en la que están las nubes y en donde se ven el Sol, la Luna y las estrellas.",
+      "options": [
+        "Debesys",
+        "Saulė",
+        "Dangus",
+        "Dūmas"
+      ],
+      "correct_answer": "Dangus"
+    },
+    {
+      "question_text": "Yo estoy feliz\uD83E\uDD29",
+      "options": [
+        "Aš esu piktas",
+        "Aš buvau namie",
+        "Aš esu laimingas",
+        "Aš noriu valgyti"
+      ],
+      "correct_answer": "Aš esu laimingas"
+    },
+    {
+      "question_text": "Te verde",
+      "options": [
+        "Agurkas",
+        "Žalia arbata",
+        "Kamuolys",
+        "Žiogas"
+      ],
+      "correct_answer": "Žalia arbata"
+    }
+  ]
+}
+

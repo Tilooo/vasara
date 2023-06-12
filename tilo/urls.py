@@ -21,6 +21,7 @@ from tot import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 app_name = 'tilo'
 
 urlpatterns = [
@@ -30,6 +31,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('sets/', include('tot.urls')),
     path('', views.home, name='home'),
+    path('quiz/', views.quiz_view, name='quiz'),
+    path('quiz/result/', views.quiz_result, name='quiz_result'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

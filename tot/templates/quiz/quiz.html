@@ -1,0 +1,33 @@
+<h1>{{ quiz_name }}</h1>
+
+<form action="{% url 'quiz' %}" method="post">
+  {% csrf_token %}
+
+  {% if question %}
+    <h2>{{ question.question_text }}</h2>
+
+    <ul>
+      {% for option in question.options %}
+        <li>
+          <input type="radio" id="option{{ forloop.counter }}" name="answer" value="{{ option }}">
+          <label for="option{{ forloop.counter }}">{{ option }}</label>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <input type="hidden" name="question_id" value="{{ question_id }}">
+    <button type="submit">Submit</button>
+  {% else %}
+    <p>No more questions.</p>
+  {% endif %}
+
+  {% if is_correct is not None %}
+    {% if is_correct %}
+      <p>Your answer is correct!</p>
+    {% else %}
+      <p>Your answer is incorrect.</p>
+    {% endif %}
+    <button type="button" onclick="window.location.href='{% url 'quiz' %}'">Next</button>
+  {% endif %}
+</form>
+
