@@ -1,55 +1,165 @@
 {
-  "quiz_name": "¡Hola, Caracola! Quiz",
+  "quiz_name": "Hola, Caracola! Quiz",
   "questions": [
     {
-      "question_text": "Fruto del manzano, comestible, de forma redondeada y algo hundida por los extremos, piel fina, de color verde, amarillo o rojo, carne blanca y jugosa, de sabor dulce o ácido, y semillas en forma de pepitas encerradas en una cápsula de cinco divisiones.",
+      "question_text": "Una manzana",
       "options": [
-        "obuolys",
-        "kriaušė",
-        "vynuogė",
-        "agrastas"
+        "Obuolys",
+        "Katinas",
+        "Kilimas",
+        "Agrastas"
       ],
-      "correct_answer": "obuolys"
+      "correct_answer": "Obuolys"
     },
     {
-      "question_text": "Expresión de saludo utilizada entre dos o más personas de trato familiar, sin importar el momento del día ni las circunstancias. Sinónimo: buenas.",
+      "question_text": "La noche",
       "options": [
-        "Kaip sekasi?",
-        "Labanaktis!",
-        "Labas!",
-        "Sveikinimai!"
+        "Laukas",
+        "Medis",
+        "Miegas",
+        "Naktis"
       ],
-      "correct_answer": "Labas!"
+      "correct_answer": "Naktis"
     },
     {
-      "question_text": "Parte de la atmósfera y del espacio exterior vistos desde la Tierra, en la que están las nubes y en donde se ven el Sol, la Luna y las estrellas.",
+      "question_text": " El cielo",
       "options": [
         "Debesys",
-        "Saulė",
+        "lietus",
         "Dangus",
-        "Dūmas"
+        "Ledai"
       ],
       "correct_answer": "Dangus"
     },
     {
-      "question_text": "Yo estoy feliz\uD83E\uDD29",
+      "question_text": "Estoy feliz",
       "options": [
-        "Aš esu piktas",
-        "Aš buvau namie",
-        "Aš esu laimingas",
-        "Aš noriu valgyti"
+        "Esu piktas",
+        "Buvau namie",
+        "Esu laimingas",
+        "Noriu valgyti"
       ],
-      "correct_answer": "Aš esu laimingas"
+      "correct_answer": "Esu laimingas"
     },
     {
-      "question_text": "Te verde",
+      "question_text": "El libro",
+      "options": [
+        "Knyga",
+        "Medis",
+        "Ugnis",
+        "lapai"
+      ],
+      "correct_answer": "Knyga"
+    },
+    {
+      "question_text": "El dia",
+      "options": [
+        "Geltonas",
+        "Medis",
+        "Diena",
+        "Vakaras"
+      ],
+      "correct_answer": "Diena"
+    },
+    {
+      "question_text": "Dos",
+      "options": [
+        "Trys",
+        "Nulis",
+        "Du",
+        "Medis"
+      ],
+      "correct_answer": "Du"
+    },
+    {
+      "question_text": "El enero",
+      "options": [
+        "Vasaris",
+        "Stalas",
+        "Saldainis",
+        "Sausis"
+      ],
+      "correct_answer": "Sausis"
+    },
+    {
+      "question_text": "Una zanahoria",
       "options": [
         "Agurkas",
-        "Žalia arbata",
-        "Kamuolys",
-        "Žiogas"
+        "Smilga",
+        "Morka",
+        "Akmuo"
       ],
-      "correct_answer": "Žalia arbata"
+      "correct_answer": "Morka"
+    },
+    {
+      "question_text": "Una piedra",
+      "options": [
+        "Uosis",
+        "Takas",
+        "Akmuo",
+        "Kelias"
+      ],
+      "correct_answer": "Akmuo"
+    },
+    {
+      "question_text": "Una ensalada",
+      "options": [
+        "Knyga",
+        "Salotos",
+        "Banga",
+        "Lapai"
+      ],
+      "correct_answer": "Salotos"
+    },
+    {
+      "question_text": "Un pan",
+      "options": [
+        "Batas",
+        "Duona",
+        "Ugnis",
+        "Ratas"
+      ],
+      "correct_answer": "Duona"
+    },
+    {
+      "question_text": "Unos zapatos",
+      "options": [
+        "Batai",
+        "Balsas",
+        "Sijonas",
+        "Muilas"
+      ],
+      "correct_answer": "Batai"
+    },
+    {
+      "question_text": "El jugo",
+      "options": [
+        "Sultys",
+        "Vanduo",
+        "Oras",
+        "Stalas"
+      ],
+      "correct_answer": "Sultys"
+    },
+    {
+      "question_text": "Una mesa",
+      "options": [
+        "Sasiuvinys",
+        "Medis",
+        "Stalas",
+        "laiptai"
+      ],
+      "correct_answer": "Stalas"
+    },
+    {
+      "question_text": "La casa",
+      "options": [
+        "Agurkas",
+        "Namas",
+        "Kamuolys",
+        "Uodas"
+      ],
+      "correct_answer": "Namas"
     }
   ]
 }

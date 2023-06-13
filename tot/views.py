@@ -150,6 +150,12 @@ def quiz_view(request):
     quiz_name = quiz_data['quiz_name']
     questions = quiz_data['questions']
 
+    if 'asked_questions' not in request.session:
+        # Initialize the asked_questions list in the session
+        request.session['asked_questions'] = []
+
+    asked_questions = request.session['asked_questions']
+
     if request.method == 'POST':
         # Process the user's answer
         question_id = int(request.POST.get('question_id'))
@@ -170,9 +176,19 @@ def quiz_view(request):
         return render(request, 'quiz/quiz.html', context)
 
     if questions:
-        # Get a random question
-        question = random.choice(questions)
+        # Get a random question that has not been asked before
+        available_questions = [q for q in questions if q['question_text'] not in asked_questions]
+        if not available_questions:
+            # If all questions have been asked, reset the asked_questions list
+            request.session['asked_questions'] = []
+            available_questions = questions
+
+        question = random.choice(available_questions)
         question_id = questions.index(question)
+
+        # Add the current question to the asked_questions list
+        asked_questions.append(question['question_text'])
+        request.session['asked_questions'] = asked_questions
 
         context = {
             'quiz_name': quiz_name,

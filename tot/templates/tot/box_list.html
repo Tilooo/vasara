@@ -4,12 +4,14 @@
     <h1>Boxes</h1>
     <div class="button-container">
         {% for box in boxes %}
-            <a href="{% url 'tot:box_detail' box_id=box.id %}" class="btn box-button">{{ box.name }}</a>
+            <a href="{% url 'tot:box_detail' box_id=box.id %}" class="btn box-button" style="background-color: #FFD700; color: #FFFFFF; border-radius: 5px; padding: 10px 20px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">{{ box.name }}</a>
         {% empty %}
             <p>No boxes found.</p>
         {% endfor %}
     </div>
 {% endblock %}
+
+
 
 
 

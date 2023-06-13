@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <style>
+        button {
+            background: linear-gradient(45deg, #FFD700, #87CEEB);
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #FFD700, #87CEEB);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+
     <h1>{{ set.name }}</h1>
     <p>{{ set.description }}</p>
 
@@ -17,6 +48,8 @@
         {% endfor %}
     </ul>
 {% endblock %}
+
+
 
 
 
