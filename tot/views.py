@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 import json
 import random
-from django.http import HttpResponse
+from django.contrib import messages
 
 
 def home(request):
@@ -137,71 +137,134 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 
-import random
-
-import random
-
 def quiz_view(request):
-    # Read the contents of the JSON file
-    with open('quiz_data/quiz.json', 'r') as file:
-        quiz_data = json.load(file)
+    # The contents of the JSON file
+    try:
+        with open('quiz_data/quiz.json', 'r') as file:
+            quiz_data = json.load(file)
+    except FileNotFoundError:
+        # Handle case where JSON file doesn't exist
+        return render(request, 'quiz/quiz_error.html', {'message': 'Quiz data file not found.'})
+    except json.JSONDecodeError:
+        # Handle case where JSON is invalid
+        return render(request, 'quiz/quiz_error.html', {'message': 'Error decoding quiz data.'})
 
-    # Access the quiz data
-    quiz_name = quiz_data['quiz_name']
-    questions = quiz_data['questions']
+    quiz_name = quiz_data.get('quiz_name', 'Quiz')
+    questions = quiz_data.get('questions', [])
 
-    if 'asked_questions' not in request.session:
-        # Initialize the asked_questions list in the session
-        request.session['asked_questions'] = []
+    if not questions:
+        # Handle case where the JSON file has no questions
+        return render(request, 'quiz/quiz_error.html', {'message': 'No questions found in the quiz data.'})
 
-    asked_questions = request.session['asked_questions']
+    # Initializes session variables if they don't exist
+    if 'quiz_score' not in request.session:
+        request.session['quiz_score'] = 0
+    if 'questions_answered' not in request.session:
+        request.session['questions_answered'] = 0
+    if 'asked_question_texts' not in request.session:  # Storing texts to avoid re-asking by content
+        request.session['asked_question_texts'] = []
 
     if request.method == 'POST':
-        # Process the user's answer
-        question_id = int(request.POST.get('question_id'))
-        selected_answer = request.POST.get('answer')
+        # --- PROCESS ANSWER ---
+        try:
+            # This question_id is the index of the question that was *just answered*
+            answered_question_id_str = request.POST.get('question_id')
+            if answered_question_id_str is None:
+                # Handle error: question_id not submitted
+                return render(request, 'quiz/quiz_error.html', {'message': 'Missing question ID in submission.'})
 
-        # Check if the answer is correct
-        question = questions[question_id]
-        correct_answer = question['correct_answer']
-        is_correct = selected_answer == correct_answer
+            answered_question_id = int(answered_question_id_str)
+            selected_answer = request.POST.get('answer')
+
+            # Check if the answered_question_id is valid (it should be, as it was displayed)
+            if 0 <= answered_question_id < len(questions):
+                question_just_answered = questions[answered_question_id]
+                correct_answer = question_just_answered['correct_answer']
+                is_correct = (selected_answer == correct_answer)
+                if is_correct:
+                    request.session['quiz_score'] += 1
+            else:
+                is_correct = None
+
+            request.session['questions_answered'] += 1
+
+        except (ValueError, TypeError):
+            # Handle error if question_id is not a valid integer
+            return render(request, 'quiz/quiz_error.html', {'message': 'Invalid question ID format.'})
+
+        # --- DETERMINE NEXT QUESTION OR END QUIZ ---
+
+        # Logic to pick next UNASKED question
+        asked_texts = request.session.get('asked_question_texts', [])
+        available_questions_for_next = []
+        for i, q_data in enumerate(questions):
+            if q_data['question_text'] not in asked_texts:
+                available_questions_for_next.append({'index': i, 'data': q_data})
+
+        if not available_questions_for_next:
+            # All questions have been asked OR no more unique questions to ask
+            # Quiz is over
+            score = request.session['quiz_score']
+            total_questions_in_quiz = len(questions)  # Or how many you intended to ask
+
+            # Clear session for next quiz attempt
+            del request.session['quiz_score']
+            del request.session['questions_answered']
+            del request.session['asked_question_texts']
+            # request.session.modified = True
+
+            return render(request, 'quiz/quiz_result.html', {
+                'quiz_name': quiz_name,
+                'score': score,
+                'total_questions': total_questions_in_quiz
+            })
+        else:
+            # Select next question randomly from available ones
+            next_question_info = random.choice(available_questions_for_next)
+            next_question_data = next_question_info['data']
+            next_question_id_for_template = next_question_info[
+                'index']  # This is the actual index in the 'questions' list
+
+            # Add to asked list for next round
+            asked_texts.append(next_question_data['question_text'])
+            request.session['asked_question_texts'] = asked_texts
+            request.session.modified = True
+
+            context = {
+                'quiz_name': quiz_name,
+                'question': next_question_data,
+                'question_id': next_question_id_for_template,  # ID/index of the question being displayed NOW
+                'feedback_is_correct': is_correct,  # Feedback on the *previous* question
+                'feedback_correct_answer': correct_answer if is_correct is not None else None,
+                'feedback_question_text': question_just_answered['question_text'] if is_correct is not None else None
+            }
+            return render(request, 'quiz/quiz.html', context)
+
+    else:  # GET request (start of quiz or direct navigation)
+        # Reset session for a new quiz attempt on GET
+        request.session['quiz_score'] = 0
+        request.session['questions_answered'] = 0
+        request.session['asked_question_texts'] = []
+        request.session.modified = True
+
+        # --- DISPLAY FIRST QUESTION ---
+        if not questions:
+            return render(request, 'quiz/quiz_error.html', {'message': 'No questions to display.'})
+
+        # Get a random first question
+        first_question_data = random.choice(questions)
+        first_question_id = questions.index(first_question_data)  # Get its actual index
+
+        # Adds to asked list
+        request.session['asked_question_texts'] = [first_question_data['question_text']]
+        request.session.modified = True
 
         context = {
             'quiz_name': quiz_name,
-            'question': question,
-            'question_id': question_id + 1,
-            'is_correct': is_correct
+            'question': first_question_data,
+            'question_id': first_question_id,  # ID/index of the question being displayed
         }
-
         return render(request, 'quiz/quiz.html', context)
-
-    if questions:
-        # Get a random question that has not been asked before
-        available_questions = [q for q in questions if q['question_text'] not in asked_questions]
-        if not available_questions:
-            # If all questions have been asked, reset the asked_questions list
-            request.session['asked_questions'] = []
-            available_questions = questions
-
-        question = random.choice(available_questions)
-        question_id = questions.index(question)
-
-        # Add the current question to the asked_questions list
-        asked_questions.append(question['question_text'])
-        request.session['asked_questions'] = asked_questions
-
-        context = {
-            'quiz_name': quiz_name,
-            'question': question,
-            'question_id': question_id
-        }
-    else:
-        context = {
-            'quiz_name': quiz_name,
-            'question': None
-        }
-
-    return render(request, 'quiz/quiz.html', context)
 
 
 def quiz_result(request):
@@ -230,3 +293,15 @@ def quiz_result(request):
         }
 
         return render(request, 'quiz/quiz_result.html', context)
+
+
+def study_mode(request, set_id):
+    set_obj = get_object_or_404(Set, pk=set_id)
+    flashcards = Flashcard.objects.filter(box__set=set_obj).order_by('?')[:10]  # Random 10 cards
+    
+    context = {
+        'set': set_obj,
+        'flashcards': flashcards,
+        'current_index': 0,
+    }
+    return render(request, 'tot/study_mode.html', context)
