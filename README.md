@@ -92,4 +92,3 @@ This project is open source and available under the MIT License .
 ## Acknowledgements
 - Django community for the excellent web framework
 - Bootstrap for the responsive design components
-- All contributors who have helped improve this project
